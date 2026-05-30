@@ -11,7 +11,7 @@ export class Preferences {
 	public showFifth: boolean;
 	public notesOutsideScale: boolean;
 	public defaultScale: number;
-	public showLetters: boolean;
+	public showPianoKeys: boolean;
 	public showChannels: boolean;
 	public showScrollBar: boolean;
 	public alwaysFineNoteVol: boolean;
@@ -43,7 +43,7 @@ export class Preferences {
 		this.enableNotePreview = window.localStorage.getItem("enableNotePreview") != "false";
 		this.showFifth = window.localStorage.getItem("showFifth") != "false";
 		this.notesOutsideScale = window.localStorage.getItem("notesOutsideScale") != "false";
-		this.showLetters = window.localStorage.getItem("showLetters") == "true";
+		this.showPianoKeys = window.localStorage.getItem("showPianoKeys") != "false";
 		this.showChannels = window.localStorage.getItem("showChannels") == "true";
 		this.showScrollBar = window.localStorage.getItem("showScrollBar") != "false";
 		this.alwaysFineNoteVol = window.localStorage.getItem("alwaysFineNoteVol") != "false";
@@ -84,7 +84,7 @@ export class Preferences {
 		window.localStorage.setItem("showFifth", this.showFifth ? "true" : "false");
 		window.localStorage.setItem("notesOutsideScale", this.notesOutsideScale ? "true" : "false");
 		window.localStorage.setItem("defaultScale", Config.scales[this.defaultScale].name);
-		window.localStorage.setItem("showLetters", this.showLetters ? "true" : "false");
+		window.localStorage.setItem("showPianoKeys", this.showPianoKeys ? "true" : "false");
 		window.localStorage.setItem("showChannels", this.showChannels ? "true" : "false");
 		window.localStorage.setItem("showScrollBar", this.showScrollBar ? "true" : "false");
 		window.localStorage.setItem("alwaysFineNoteVol", this.alwaysFineNoteVol ? "true" : "false");

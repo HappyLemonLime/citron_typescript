@@ -404,7 +404,7 @@ export class SongEditor {
         option({ value: "autoPlay" }, "Auto Play on Load"),
         option({ value: "autoFollow" }, "Auto Follow Playhead"),
         option({ value: "enableNotePreview" }, "Hear Added Notes"),
-        option({ value: "showLetters" }, "Show Piano Keys"),
+        option({ value: "showPianoKeys" }, "Show Piano Keys"),
         option({ value: "showFifth" }, 'Highlight "Fifth" Note'),
         option({ value: "notesOutsideScale" }, "Place Notes Out of Scale"),
         option({ value: "setDefaultScale" }, "Set Current Scale as Default"),
@@ -1534,7 +1534,7 @@ export class SongEditor {
             this._patternEditor.stopEditingModLabel(false);
         }
 
-        this._piano.container.style.display = prefs.showLetters ? "" : "none";
+        this._piano.container.style.display = prefs.showPianoKeys ? "" : "none";
         this._octaveScrollBar.container.style.display = prefs.showScrollBar ? "" : "none";
         this._barScrollBar.container.style.display = this._doc.song.barCount > this._doc.trackVisibleBars ? "" : "none";
         this._volumeBarBox.style.display = this._doc.prefs.displayVolumeBar ? "" : "none";
@@ -1575,7 +1575,7 @@ export class SongEditor {
             (prefs.autoPlay ? "✓ " : "　") + "Auto Play on Load",
             (prefs.autoFollow ? "✓ " : "　") + "Auto Follow Playhead",
             (prefs.enableNotePreview ? "✓ " : "　") + "Hear Added Notes",
-            (prefs.showLetters ? "✓ " : "　") + "Show Piano Keys",
+            (prefs.showPianoKeys ? "✓ " : "　") + "Show Piano Keys",
             (prefs.showFifth ? "✓ " : "　") + 'Highlight "Fifth" Note',
             (prefs.notesOutsideScale ? "✓ " : "　") + "Place Notes Out of Scale",
             (prefs.defaultScale == this._doc.song.scale ? "✓ " : "　") + "Set Current Scale as Default",
@@ -3226,7 +3226,7 @@ export class SongEditor {
                     this._doc.prefs.showFifth = true;
                     this._doc.prefs.notesOutsideScale = false;
                     this._doc.prefs.defaultScale = 0;
-                    this._doc.prefs.showLetters = true;
+                    this._doc.prefs.showPianoKeys = true;
                     this._doc.prefs.showChannels = true;
                     this._doc.prefs.showScrollBar = true;
                     this._doc.prefs.alwaysFineNoteVol = false;
@@ -4211,8 +4211,8 @@ export class SongEditor {
             case "enableNotePreview":
                 this._doc.prefs.enableNotePreview = !this._doc.prefs.enableNotePreview;
                 break;
-            case "showLetters":
-                this._doc.prefs.showLetters = !this._doc.prefs.showLetters;
+            case "showPianoKeys":
+                this._doc.prefs.showPianoKeys = !this._doc.prefs.showPianoKeys;
                 break;
             case "showFifth":
                 this._doc.prefs.showFifth = !this._doc.prefs.showFifth;

@@ -288,7 +288,7 @@ export class Piano {
 		this._updateCursorPitch();
 		if (this._mouseDown) this._playLiveInput();
 		
-		if (!this._doc.prefs.showLetters) return;
+		if (!this._doc.prefs.showPianoKeys) return;
 		if (this._renderedScale == this._doc.song.scale && this._renderedKey == this._doc.song.key && this._renderedDrums == isDrum && this._renderedMod == isMod && this._renderedPitchCount == this._pitchCount) return;
 		
 		this._renderedScale = this._doc.song.scale;

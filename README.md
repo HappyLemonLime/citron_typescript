@@ -1,6 +1,6 @@
-# JummBox
+# Citron
 
-JummBox is an online tool for sketching and sharing instrumental music.
+Citron is an online tool for sketching and sharing instrumental music.
 Try it out [here](jummbus.bitbucket.io)!
 It is a modification of the [original BeepBox](https://beepbox.co), focused on improving ease-of-use.
 
@@ -9,10 +9,10 @@ changes to the song, the URL is updated to reflect your changes. When you are
 satisfied with your song, just copy and paste the URL to save and share your
 song!
 
-BeepBox, and JummBox by extension, are passion projects and will always be free to use. If you find it
+BeepBox, and Citron by extension, are passion projects and will always be free to use. If you find it
 valuable and have the means, please support the original creator, [John Nesky](http://www.johnnesky.com/), via
 [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=QZJTX9GRYEV9N&currency_code=USD)!
-JummBox is developed by [Jummbus](http://www.twitter.com/jummbus).
+Citron is developed by [Jummbus](http://www.twitter.com/jummbus).
 
 ## Compiling
 
@@ -24,13 +24,13 @@ The source code is available under the MIT license. The code is written in
 build this project, open the command line and run:
 
 ```
-git clone https://github.com/jummbus/jummbox.git
-cd jummbox
+git clone https://github.com/jummbus/citron.git
+cd citron
 npm install
 npm run build
 ```
 
-JummBox makes a divergence from BeepBox that necessitates an additional dependency:
+Citron makes a divergence from BeepBox that necessitates an additional dependency:
 rather than using the (rather poor) default HTML select implementation, the custom
 library [select2](https://select2.org) is employed. select2 has an explicit dependency
 on [jQuery](https://jquery.com) as well, so you may need to install the following
@@ -46,7 +46,7 @@ npm install @types/jquery
 
 The code is divided into several folders. This architecture is identical to BeepBox's.
 
-The [synth/](synth) folder has just the code you need to be able to play JummBox
+The [synth/](synth) folder has just the code you need to be able to play Citron
 songs out loud, and you could use this code in your own projects, like a web
 game. After compiling the synth code, open website/synth_example.html to see a
 demo using it. To rebuild just the synth code, run:
@@ -76,8 +76,8 @@ The build process outputs JavaScript files into this folder.
 ## Dependencies
 
 Most of the dependencies are listed in [package.json](package.json), although
-I'd like to note that JummBox also has an indirect, optional dependency on
+I'd like to note that Citron also has an indirect, optional dependency on
 [lamejs](https://www.npmjs.com/package/lamejs) via
 [jsdelivr](https://www.jsdelivr.com/) for exporting .mp3 files. If the user
-attempts to export an .mp3 file, JummBox will direct the browser to download
+attempts to export an .mp3 file, Citron will direct the browser to download
 that dependency on demand.

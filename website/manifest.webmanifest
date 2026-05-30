@@ -1,7 +1,7 @@
 {
-	"name": "JummBox",
-	"short_name": "JummBox",
-	"description": "JummBox is a tool for sketching and sharing instrumental melodies.",
+	"name": "Citron",
+	"short_name": "Citron",
+	"description": "Citron is a tool for sketching and sharing instrumental melodies.",
 	"scope": "/",
 	"start_url": ".",
 	"display": "browser",

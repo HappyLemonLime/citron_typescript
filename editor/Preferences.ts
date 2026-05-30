@@ -61,7 +61,7 @@ export class Preferences {
 		this.keyboardLayout = window.localStorage.getItem("keyboardLayout") || "wickiHayden";
 		this.bassOffset = (+(<any>window.localStorage.getItem("bassOffset"))) || 0;
 		this.layout = window.localStorage.getItem("layout") || "small";
-		this.colorTheme = window.localStorage.getItem("colorTheme") || "jummbox classic";
+		this.colorTheme = window.localStorage.getItem("colorTheme") || "citron classic";
 		this.visibleOctaves = ((<any>window.localStorage.getItem("visibleOctaves")) >>> 0) || Preferences.defaultVisibleOctaves;
 		
 		const defaultScale: Scale | undefined = Config.scales.dictionary[window.localStorage.getItem("defaultScale")!];

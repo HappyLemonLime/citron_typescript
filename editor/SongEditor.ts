@@ -420,8 +420,8 @@ export class SongEditor {
     );
     private readonly _scaleSelect: HTMLSelectElement = buildOptions(select(), Config.scales.map(scale => scale.name));
     private readonly _keySelect: HTMLSelectElement = buildOptions(select(), Config.keys.map(key => key.name).reverse());
-    private readonly _tempoSlider: Slider = new Slider(input({ style: "margin: 0; vertical-align: middle;", type: "range", min: "30", max: "320", value: "160", step: "1" }), this._doc, (oldValue: number, newValue: number) => new ChangeTempo(this._doc, oldValue, newValue), false);
-    private readonly _tempoStepper: HTMLInputElement = input({ style: "width: 4em; font-size: 80%; margin-left: 0.4em; vertical-align: middle;", type: "number", step: "1" });
+    private readonly _tempoSlider: Slider = new Slider(input({ style: "margin: 0; vertical-align: middle;", type: "range", min: "1", max: "1000", value: "160", step: "1" }), this._doc, (oldValue: number, newValue: number) => new ChangeTempo(this._doc, oldValue, newValue), false);
+    private readonly _tempoStepper: HTMLInputElement = input({ style: "width: 4em; font-size: 80%; margin-left: 0.4em; vertical-align: middle;", type: "text", step: "1" });
     private readonly _chorusSlider: Slider = new Slider(input({ style: "margin: 0;", type: "range", min: "0", max: Config.chorusRange - 1, value: "0", step: "1" }), this._doc, (oldValue: number, newValue: number) => new ChangeChorus(this._doc, oldValue, newValue), false);
     private readonly _chorusRow: HTMLDivElement = div({ class: "selectRow" }, span({ class: "tip", onclick: () => this._openPrompt("chorus") }, "Chorus:"), this._chorusSlider.container);
     private readonly _reverbSlider: Slider = new Slider(input({ style: "margin: 0; position: sticky,", type: "range", min: "0", max: Config.reverbRange - 1, value: "0", step: "1" }), this._doc, (oldValue: number, newValue: number) => new ChangeReverb(this._doc, oldValue, newValue), false);
@@ -583,13 +583,6 @@ export class SongEditor {
     private readonly _modFilterBoxes: HTMLSelectElement[];
     private readonly _modTargetIndicators: SVGElement[];
 
-    private readonly _instrumentCopyButton: HTMLButtonElement = button({ style: "max-width:86px; width: 86px;", class: "copyButton", title: "Copy Instrument (⇧C)" }, [
-        "Copy",
-        // Copy icon:
-        SVG.svg({ style: "flex-shrink: 0; position: absolute; left: 0; top: 50%; margin-top: -1em; pointer-events: none;", width: "2em", height: "2em", viewBox: "-5 -21 26 26" }, [
-            SVG.path({ d: "M 0 -15 L 1 -15 L 1 0 L 13 0 L 13 1 L 0 1 L 0 -15 z M 2 -1 L 2 -17 L 10 -17 L 14 -13 L 14 -1 z M 3 -2 L 13 -2 L 13 -12 L 9 -12 L 9 -16 L 3 -16 z", fill: "currentColor" }),
-        ]),
-    ]);
     private readonly _instrumentPasteButton: HTMLButtonElement = button({ style: "max-width:86px;", class: "pasteButton", title: "Paste Instrument (⇧V)" }, [
         "Paste",
         // Paste icon:
@@ -608,6 +601,29 @@ export class SongEditor {
     private readonly _customWaveDraw: HTMLDivElement = div({ style: "height:80px; margin-top:10px; margin-bottom:5px" }, [
         div({ style: "height:54px; display:flex; justify-content:center;" }, [this._customWaveDrawCanvas.canvas]),
         div({ style: "margin-top:5px; display:flex; justify-content:center;" }, [this._customWavePresetDrop, this._customWaveZoom]),
+    ]);
+
+    private readonly _instrumentCopyButton: HTMLButtonElement = button({ style: "max-width:86px; width: 86px;", class: "copyButton", title: "Copy Instrument (⇧C)" }, [
+        "Copy",
+        // Copy icon:
+        SVG.svg({ style: "flex-shrink: 0; position: absolute; left: 0; top: 50%; margin-top: -1em; pointer-events: none;", width: "2em", height: "2em", viewBox: "-5 -21 26 26" }, [
+            SVG.path({ d: "M 0 -15 L 1 -15 L 1 0 L 13 0 L 13 1 L 0 1 L 0 -15 z M 2 -1 L 2 -17 L 10 -17 L 14 -13 L 14 -1 z M 3 -2 L 13 -2 L 13 -12 L 9 -12 L 9 -16 L 3 -16 z", fill: "currentColor" }),
+        ]),
+    ]);
+
+    private readonly _instrumentExportButton: HTMLButtonElement = button({ style: "max-width:86px; width: 86px;", class: "exportInstrumentButton" }, [
+        "Export",
+        // Export icon:
+        SVG.svg({ style: "flex-shrink: 0; position: absolute; left: 0; top: 50%; margin-top: -1em; pointer-events: none;", width: "2em", height: "2em", viewBox: "0 -960 960 960" }, [
+            SVG.path({ d: "M200-120v-40h560v40H200Zm279.231-150.769L254.615-568.462h130.769V-840h188.462v271.538h130.77L479.231-270.769Zm0-65.385 142.923-191.538h-88.308V-800H425.385v272.308h-88.308l142.154 191.538ZM480-527.692Z", fill: "currentColor" }),
+        ]),
+    ]);
+    private readonly _instrumentImportButton: HTMLButtonElement = button({ style: "max-width:86px;", class: "importInstrumentButton" }, [
+        "Import",
+        // Import icon:
+        SVG.svg({ style: "flex-shrink: 0; position: absolute; left: 0; top: 50%; margin-top: -1em; pointer-events: none;", width: "2em", height: "2em", viewBox: "0 -960 960 960" }, [
+            SVG.path({ d: "M200-120v-40h560v40H200Zm185.384-150.769v-271.539H254.615L480-840l224.616 297.692h-130.77v271.539H385.384Zm40.001-40h108.461v-272.308h88.308L480-774.615 337.077-583.077h88.308v272.308ZM480-583.077Z", fill: "currentColor"}),
+        ]),
     ]);
 
     private readonly _songTitleInputBox: InputBox = new InputBox(input({ style: "font-weight:bold; border:none; width: 98%; background-color:${ColorConfig.editorBackground}; color:${ColorConfig.primaryText}; text-align:center", maxlength: "30", type: "text", value: EditorConfig.versionDisplayName }), this._doc, (oldValue: string, newValue: string) => new ChangeSongTitle(this._doc, oldValue, newValue));
@@ -1113,6 +1129,8 @@ export class SongEditor {
         this.mainLayer.addEventListener("focusin", this._onFocusIn);
         this._instrumentCopyButton.addEventListener("click", this._copyInstrument.bind(this));
         this._instrumentPasteButton.addEventListener("click", this._pasteInstrument.bind(this));
+        this._instrumentExportButton.addEventListener("click", this._exportInstruments.bind(this));
+        this._instrumentImportButton.addEventListener("click", this._importInstruments.bind(this));
 
         this._instrumentVolumeSliderInputBox.addEventListener("input", () => { this._doc.record(new ChangeVolume(this._doc, this._doc.song.channels[this._doc.channel].instruments[this._doc.getCurrentInstrument()].volume, Math.min(25.0, Math.max(-25.0, Math.round(+this._instrumentVolumeSliderInputBox.value))))) });
         this._panSliderInputBox.addEventListener("input", () => { this._doc.record(new ChangePan(this._doc, this._doc.song.channels[this._doc.channel].instruments[this._doc.getCurrentInstrument()].pan, Math.min(100.0, Math.max(0.0, Math.round(+this._panSliderInputBox.value))))) });
@@ -1643,6 +1661,7 @@ export class SongEditor {
             }
 
             this._modulatorGroup.style.display = "none";
+
 
             // Check if current viewed pattern on channel is used anywhere
             // + Check if current instrument on channel is used anywhere
@@ -2977,8 +2996,39 @@ export class SongEditor {
 
                     event.preventDefault();
                     this.refocusStage();
+                } else if (canPlayNotes) break;
+                if (needControlForShortcuts == (event.ctrlKey || event.metaKey) && event.shiftKey) {
+                    location.href = "player/" + "#song=" + this._doc.song.toBase64String();
+                    event.preventDefault();
                 }
                 break;
+            case 192: // `/~
+                if (canPlayNotes) break;
+                if (event.shiftKey) {
+                    this._doc.goBackToStart();
+                    this._doc.song.restoreLimiterDefaults();
+                    for (const channel of this._doc.song.channels) {
+                        channel.muted = false;
+                        channel.name = "";
+                    }
+                    this._doc.record(new ChangeSong(this._doc, ""), false, true);
+                } else {
+                    if (needControlForShortcuts == (event.ctrlKey || event.metaKey)) {
+                        this._openPrompt("songRecovery");
+                    }
+                }
+                event.preventDefault();
+                break;
+            case 71: // g
+                if (canPlayNotes) break;
+                 let shortenerStrategy: string = "https://tinyurl.com/api-create.php?url=";
+                    const localShortenerStrategy: string | null = window.localStorage.getItem("shortenerStrategySelect");
+
+                    // if (localShortenerStrategy == "beepboxnet") shortenerStrategy = "https://www.beepbox.net/api-create.php?url=";
+                    if (localShortenerStrategy == "isgd") shortenerStrategy = "https://is.gd/create.php?format=simple&url=";
+
+                window.open(shortenerStrategy + encodeURIComponent(new URL("#" + this._doc.song.toBase64String(), location.href).href));
+            break;
             case 90: // z
                 if (canPlayNotes) break;
                 if (event.shiftKey) {
@@ -2986,6 +3036,11 @@ export class SongEditor {
                 } else {
                     this._doc.undo();
                 }
+                event.preventDefault();
+                break;
+            case 88: // x
+                if (canPlayNotes) break;
+                this._doc.selection.cutNotes();
                 event.preventDefault();
                 break;
             case 89: // y
@@ -2997,42 +3052,45 @@ export class SongEditor {
                 if (canPlayNotes) break;
 
                 if (needControlForShortcuts == (event.ctrlKey || event.metaKey)) {
-                    const leftSel = Math.min(this._doc.selection.boxSelectionX0, this._doc.selection.boxSelectionX1);
-                    const rightSel = Math.max(this._doc.selection.boxSelectionX0, this._doc.selection.boxSelectionX1);
-                    if ((leftSel < this._doc.synth.loopBarStart || this._doc.synth.loopBarStart == -1)
-                        || (rightSel > this._doc.synth.loopBarEnd || this._doc.synth.loopBarEnd == -1)
-                    ) {
-                        this._doc.synth.loopBarStart = leftSel;
-                        this._doc.synth.loopBarEnd = rightSel;
+                    if (event.shiftKey) {
+                        this._openPrompt("beatsPerBar");
+                    } else { 
+                        const leftSel = Math.min(this._doc.selection.boxSelectionX0, this._doc.selection.boxSelectionX1);
+                        const rightSel = Math.max(this._doc.selection.boxSelectionX0, this._doc.selection.boxSelectionX1);
+                        if ((leftSel < this._doc.synth.loopBarStart || this._doc.synth.loopBarStart == -1)
+                            || (rightSel > this._doc.synth.loopBarEnd || this._doc.synth.loopBarEnd == -1)
+                        ) {
+                            this._doc.synth.loopBarStart = leftSel;
+                            this._doc.synth.loopBarEnd = rightSel;    
 
-                        if (!this._doc.synth.playing) {
+                            if (!this._doc.synth.playing) {
+                                this._doc.synth.snapToBar();
+                                this._doc.performance.play();
+                            }
+                        }
+                        else {
+                            this._doc.synth.loopBarStart = -1;
+                            this._doc.synth.loopBarEnd = -1;
+                        }
+
+                        // Pressed while viewing a different bar than the current synth playhead.
+                        if (this._doc.bar != Math.floor(this._doc.synth.playhead) && this._doc.synth.loopBarStart != -1) {
+
+                            this._doc.synth.goToBar(this._doc.bar);
                             this._doc.synth.snapToBar();
-                            this._doc.performance.play();
-                        }
-                    }
-                    else {
-                        this._doc.synth.loopBarStart = -1;
-                        this._doc.synth.loopBarEnd = -1;
-                    }
+                            this._doc.synth.initModFilters(this._doc.song);
+                            this._doc.synth.computeLatestModValues();
+                            if (this._doc.prefs.autoFollow) {
+                                this._doc.selection.setChannelBar(this._doc.channel, Math.floor(this._doc.synth.playhead));
+                            }
 
-                    // Pressed while viewing a different bar than the current synth playhead.
-                    if (this._doc.bar != Math.floor(this._doc.synth.playhead) && this._doc.synth.loopBarStart != -1) {
-
-                        this._doc.synth.goToBar(this._doc.bar);
-                        this._doc.synth.snapToBar();
-                        this._doc.synth.initModFilters(this._doc.song);
-                        this._doc.synth.computeLatestModValues();
-                        if (this._doc.prefs.autoFollow) {
-                            this._doc.selection.setChannelBar(this._doc.channel, Math.floor(this._doc.synth.playhead));
                         }
 
+                        this._loopEditor.setLoopAt(this._doc.synth.loopBarStart, this._doc.synth.loopBarEnd);
+                    
                     }
-
-                    this._loopEditor.setLoopAt(this._doc.synth.loopBarStart, this._doc.synth.loopBarEnd);
-
-
-                    event.preventDefault();
                 }
+                event.preventDefault();
                 break;
             case 67: // c
                 if (canPlayNotes) break;
@@ -3040,9 +3098,9 @@ export class SongEditor {
                     this._copyInstrument();
                 } else {
                     this._doc.selection.copy();
+                    this._doc.selection.resetBoxSelection();
+                    this._doc.selection.selectionUpdated();
                 }
-                this._doc.selection.resetBoxSelection();
-                this._doc.selection.selectionUpdated();
                 event.preventDefault();
                 break;
             case 13: // enter/return
@@ -3050,7 +3108,13 @@ export class SongEditor {
                 this._doc.synth.loopBarEnd = -1;
                 this._loopEditor.setLoopAt(this._doc.synth.loopBarStart, this._doc.synth.loopBarEnd);
 
-                if (event.ctrlKey || event.metaKey) {
+                if (event.shiftKey && !event.ctrlKey) {
+                    const minusWidth = this._doc.selection.boxSelectionWidth;
+                    this._doc.bar -= minusWidth;
+                    this._doc.selection.boxSelectionX0 -= minusWidth;
+                    this._doc.selection.boxSelectionX1 -= minusWidth;
+                    this._doc.selection.insertBars();
+                } else if ((event.ctrlKey || event.metaKey) && !event.shiftKey) {
                     this._doc.selection.insertChannel();
                 } else {
                     this._doc.selection.insertBars();
@@ -3087,15 +3151,35 @@ export class SongEditor {
                 }
                 break;
             case 69: // e (+shift: eq filter settings)
+                if (canPlayNotes) break;
                 if (event.shiftKey) {
                     const instrument: Instrument = this._doc.song.channels[this._doc.channel].instruments[this._doc.getCurrentInstrument()];
                     if (!instrument.eqFilterType && this._doc.channel < this._doc.song.pitchChannelCount + this._doc.song.noiseChannelCount)
                         this._openPrompt("customEQFilterSettings");
-                }
+                } else if (needControlForShortcuts == (event.ctrlKey || event.metaKey)) {
+                    // EUCLEDIAN RHYTHM SHORTCUT (E)
+                    this._openPrompt("generateEuclideanRhythm");
+                    event.preventDefault();
+                    break;
+			    }
                 break;
             case 70: // f
                 if (canPlayNotes) break;
-                if (needControlForShortcuts == (event.ctrlKey || event.metaKey)) {
+                if (event.shiftKey) { // if shift+f, move to start of loop bar instead 
+                    
+                    this._doc.synth.loopBarStart = -1;
+                    this._doc.synth.loopBarEnd = -1;
+                    this._loopEditor.setLoopAt(this._doc.synth.loopBarStart, this._doc.synth.loopBarEnd);
+
+                    this._doc.synth.goToBar(this._doc.song.loopStart);
+                    this._doc.synth.snapToBar();
+                    this._doc.synth.initModFilters(this._doc.song);
+                    this._doc.synth.computeLatestModValues();
+                    if (this._doc.prefs.autoFollow) {
+                        this._doc.selection.setChannelBar(this._doc.channel, Math.floor(this._doc.synth.playhead));
+                    }
+                    event.preventDefault();
+                } else if (needControlForShortcuts == (event.ctrlKey || event.metaKey)) {
 
                     this._doc.synth.loopBarStart = -1;
                     this._doc.synth.loopBarEnd = -1;
@@ -3210,11 +3294,10 @@ export class SongEditor {
                         // Auto set the used instruments to the ones you were most recently viewing.
                         if (this._doc.channel >= this._doc.song.pitchChannelCount + this._doc.song.noiseChannelCount)
                         {
-                           
                                 this._doc.viewedInstrument[this._doc.channel] = this._doc.recentPatternInstruments[this._doc.channel][0];
                         }
                         group.append(new ChangeSetPatternInstruments(this._doc, this._doc.channel, this._doc.recentPatternInstruments[this._doc.channel],  this._doc.song.channels[this._doc.channel].patterns[nextEmpty-1]));
-                        
+
                     }
                 }
                 else {
@@ -3234,13 +3317,13 @@ export class SongEditor {
 
                         // Change pattern number to lowest-index unused
                         group.append(new ChangePatternNumbers(this._doc, nextUnused, this._doc.bar, this._doc.channel, 1, 1));
-                        
+
                         // Auto set the used instruments to the ones you were most recently viewing.
                         if (this._doc.channel >= this._doc.song.pitchChannelCount + this._doc.song.noiseChannelCount)
                         {
                                 this._doc.viewedInstrument[this._doc.channel] = this._doc.recentPatternInstruments[this._doc.channel][0];
                         }
-                        group.append(new ChangeSetPatternInstruments(this._doc, this._doc.channel, this._doc.recentPatternInstruments[this._doc.channel],  this._doc.song.channels[this._doc.channel].patterns[nextUnused-1]));
+                        group.append(new ChangeSetPatternInstruments(this._doc, this._doc.channel, this._doc.recentPatternInstruments[this._doc.channel],  this._doc.song.channels[this._doc.channel].patterns[nextUnused-1]));                               
 
                     }
                 }
@@ -3252,8 +3335,16 @@ export class SongEditor {
             case 81: // q
                 if (canPlayNotes) break;
                 if (needControlForShortcuts == (event.ctrlKey || event.metaKey)) {
-                    this._openPrompt("channelSettings");
-                    event.preventDefault();
+			if (event.shiftKey) {
+				this._openPrompt("addExternal");
+				event.preventDefault();
+				break;
+			}
+			else {
+				this._openPrompt("channelSettings");
+				event.preventDefault();
+				break;
+			}
                 }
                 break;
             case 83: // s
@@ -3263,7 +3354,7 @@ export class SongEditor {
                     event.preventDefault();
                 } else {
                     if (this._doc.prefs.enableChannelMuting) {
-                        // JummBox deviation: I like shift+s as just another mute toggle personally.
+                        // Citron deviation: I like shift+s as just another mute toggle personally.
                         // Easier to reach than M and the shift+s invert functionality I am overwriting could be 
                         // obtained with M anyway. Useability-wise you very often want to 'add' channels on to a solo as you work.
                         if (event.shiftKey) {
@@ -3325,7 +3416,9 @@ export class SongEditor {
                 if (canPlayNotes) break;
                 if (needControlForShortcuts == (event.ctrlKey || event.metaKey)) {
                     if (event.shiftKey) {
-                        this._randomGenerated();
+                        this._randomGenerated(false);
+                    } else if (event.altKey) {
+                        this._randomGenerated(true);
                     } else {
                         this._randomPreset();
                     }
@@ -3441,61 +3534,61 @@ export class SongEditor {
                 if (canPlayNotes) break;
                 this._doc.selection.nextDigit("0", needControlForShortcuts != (event.shiftKey || event.ctrlKey || event.metaKey), event.altKey);
                 this._renderInstrumentBar(this._doc.song.channels[this._doc.channel], this._doc.getCurrentInstrument(), ColorConfig.getChannelColor(this._doc.song, this._doc.channel));
-                event.preventDefault();
+			event.preventDefault();
                 break;
             case 49: // 1
                 if (canPlayNotes) break;
                 this._doc.selection.nextDigit("1", needControlForShortcuts != (event.shiftKey || event.ctrlKey || event.metaKey), event.altKey);
                 this._renderInstrumentBar(this._doc.song.channels[this._doc.channel], this._doc.getCurrentInstrument(), ColorConfig.getChannelColor(this._doc.song, this._doc.channel));
-                event.preventDefault();
+			event.preventDefault();
                 break;
             case 50: // 2
                 if (canPlayNotes) break;
                 this._doc.selection.nextDigit("2", needControlForShortcuts != (event.shiftKey || event.ctrlKey || event.metaKey), event.altKey);
                 this._renderInstrumentBar(this._doc.song.channels[this._doc.channel], this._doc.getCurrentInstrument(), ColorConfig.getChannelColor(this._doc.song, this._doc.channel));
-                event.preventDefault();
+			event.preventDefault();
                 break;
             case 51: // 3
                 if (canPlayNotes) break;
                 this._doc.selection.nextDigit("3", needControlForShortcuts != (event.shiftKey || event.ctrlKey || event.metaKey), event.altKey);
-                this._renderInstrumentBar(this._doc.song.channels[this._doc.channel], this._doc.getCurrentInstrument(), ColorConfig.getChannelColor(this._doc.song, this._doc.channel));
-                event.preventDefault();
+               this._renderInstrumentBar(this._doc.song.channels[this._doc.channel], this._doc.getCurrentInstrument(), ColorConfig.getChannelColor(this._doc.song, this._doc.channel));
+			event.preventDefault();
                 break;
             case 52: // 4
                 if (canPlayNotes) break;
                 this._doc.selection.nextDigit("4", needControlForShortcuts != (event.shiftKey || event.ctrlKey || event.metaKey), event.altKey);
                 this._renderInstrumentBar(this._doc.song.channels[this._doc.channel], this._doc.getCurrentInstrument(), ColorConfig.getChannelColor(this._doc.song, this._doc.channel));
-                event.preventDefault();
+			event.preventDefault();
                 break;
             case 53: // 5
                 if (canPlayNotes) break;
                 this._doc.selection.nextDigit("5", needControlForShortcuts != (event.shiftKey || event.ctrlKey || event.metaKey), event.altKey);
-                this._renderInstrumentBar(this._doc.song.channels[this._doc.channel], this._doc.getCurrentInstrument(), ColorConfig.getChannelColor(this._doc.song, this._doc.channel));
-                event.preventDefault();
+               this._renderInstrumentBar(this._doc.song.channels[this._doc.channel], this._doc.getCurrentInstrument(), ColorConfig.getChannelColor(this._doc.song, this._doc.channel));
+			event.preventDefault();
                 break;
             case 54: // 6
                 if (canPlayNotes) break;
                 this._doc.selection.nextDigit("6", needControlForShortcuts != (event.shiftKey || event.ctrlKey || event.metaKey), event.altKey);
-                this._renderInstrumentBar(this._doc.song.channels[this._doc.channel], this._doc.getCurrentInstrument(), ColorConfig.getChannelColor(this._doc.song, this._doc.channel));
-                event.preventDefault();
+               this._renderInstrumentBar(this._doc.song.channels[this._doc.channel], this._doc.getCurrentInstrument(), ColorConfig.getChannelColor(this._doc.song, this._doc.channel));
+			event.preventDefault();
                 break;
             case 55: // 7
                 if (canPlayNotes) break;
                 this._doc.selection.nextDigit("7", needControlForShortcuts != (event.shiftKey || event.ctrlKey || event.metaKey), event.altKey);
-                this._renderInstrumentBar(this._doc.song.channels[this._doc.channel], this._doc.getCurrentInstrument(), ColorConfig.getChannelColor(this._doc.song, this._doc.channel));
-                event.preventDefault();
+               this._renderInstrumentBar(this._doc.song.channels[this._doc.channel], this._doc.getCurrentInstrument(), ColorConfig.getChannelColor(this._doc.song, this._doc.channel));
+			event.preventDefault();
                 break;
             case 56: // 8
                 if (canPlayNotes) break;
                 this._doc.selection.nextDigit("8", needControlForShortcuts != (event.shiftKey || event.ctrlKey || event.metaKey), event.altKey);
                 this._renderInstrumentBar(this._doc.song.channels[this._doc.channel], this._doc.getCurrentInstrument(), ColorConfig.getChannelColor(this._doc.song, this._doc.channel));
-                event.preventDefault();
+			event.preventDefault();
                 break;
             case 57: // 9
                 if (canPlayNotes) break;
                 this._doc.selection.nextDigit("9", needControlForShortcuts != (event.shiftKey || event.ctrlKey || event.metaKey), event.altKey);
                 this._renderInstrumentBar(this._doc.song.channels[this._doc.channel], this._doc.getCurrentInstrument(), ColorConfig.getChannelColor(this._doc.song, this._doc.channel));
-                event.preventDefault();
+			event.preventDefault();
                 break;
             default:
                 this._doc.selection.digits = "";
@@ -3698,6 +3791,14 @@ export class SongEditor {
         this.refocusStage();
     }
 
+    private _exportInstruments = (): void => {
+        this._openPrompt("exportInstrument");
+    }
+
+    private _importInstruments = (): void => {
+        this._openPrompt("importInstrument");
+    };
+
     private _switchEQFilterType(toSimple: boolean) {
         const channel: Channel = this._doc.song.channels[this._doc.channel];
         const instrument: Instrument = channel.instruments[this._doc.getCurrentInstrument()];
@@ -3719,13 +3820,35 @@ export class SongEditor {
         this._doc.record(new ChangePreset(this._doc, pickRandomPresetValue(isNoise)));
     }
 
-    private _randomGenerated(): void {
-        this._doc.record(new ChangeRandomGeneratedInstrument(this._doc));
+    private _randomGenerated(usesCurrentInstrumentType: boolean): void {
+        this._doc.record(new ChangeRandomGeneratedInstrument(this._doc, usesCurrentInstrumentType));
     }
 
-
     private _whenSetTempo = (): void => {
+        const tempoValue = this._tempoStepper.value.trim();
+
         this._doc.record(new ChangeTempo(this._doc, -1, parseInt(this._tempoStepper.value) | 0));
+
+        let tempo: number;
+
+        if (tempoValue.includes("*")) {
+            const [a,b] = tempoValue.split("*").map(Number);
+            tempo = a*b;
+        }
+
+        else if (tempoValue.includes("/")) {
+            const [a,b] = tempoValue.split("/").map(Number);
+            tempo = Math.floor(a/b);
+        }
+
+        else {
+            tempo = parseInt(tempoValue);
+        }
+
+        if (!isNaN(tempo)) {
+        this._tempoStepper.value = tempo.toString();
+        this._doc.record(new ChangeTempo(this._doc, -1, parseInt(this._tempoStepper.value) | 0));
+        }
     }
 
     private _whenSetScale = (): void => {
@@ -3794,7 +3917,7 @@ export class SongEditor {
                     this._randomPreset();
                     break;
                 case "randomGenerated":
-                    this._randomGenerated();
+                    this._randomGenerated(false);
                     break;
             }
             this._doc.notifier.changed();
@@ -4133,6 +4256,7 @@ export class SongEditor {
         this._doc.notifier.changed();
         this._doc.prefs.save();
     }
+
 
     private _customWavePresetHandler = (event: Event): void => {
 

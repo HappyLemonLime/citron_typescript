@@ -1,5 +1,5 @@
 
-const cacheName = "JummBox";
+const cacheName = "Citron";
 
 self.addEventListener("install", function(event) {
 	event.waitUntil(

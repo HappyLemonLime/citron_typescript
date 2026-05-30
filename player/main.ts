@@ -147,7 +147,7 @@ import { HTML, SVG } from "imperative-html/dist/esm/elements-strict";
 	}
 `));
 
-ColorConfig.setTheme(window.localStorage.getItem("colorTheme") || "jummbox classic");
+ColorConfig.setTheme(window.localStorage.getItem("colorTheme") || "citron classic");
 
 let prevHash: string | null = null;
 let id: string = ((Math.random() * 0xffffffff) >>> 0).toString(16);
@@ -591,7 +591,33 @@ function onKeyPressed(event: KeyboardEvent): void {
 			renderPlayhead();
 			event.preventDefault();
 			break;
+		case 80: // p
+			if (event.shiftKey) {
+				hashUpdatedExternally();
+				location.href ="../" + "#" + synth.song!.toBase64String();
+				event.preventDefault();
+			}
+			break;
+		case 71: // g
+				shortenUrl();
+				event.preventDefault();
+			break;
+		case 67: // c
+			onCopyClicked();
+			break;
+
 	}
+}
+
+function shortenUrl() {
+	hashUpdatedExternally();
+	let shortenerStrategy: string = "https://tinyurl.com/api-create.php?url=";
+	const localShortenerStrategy: string | null = window.localStorage.getItem("shortenerStrategySelect");
+
+	// if (localShortenerStrategy == "beepboxnet") shortenerStrategy = "https://www.beepbox.net/api-create.php?url=";
+	if (localShortenerStrategy == "isgd") shortenerStrategy = "https://is.gd/create.php?format=simple&url=";
+
+	window.open(shortenerStrategy + encodeURIComponent(new URL("#" + synth.song!.toBase64String(), location.href).href));
 }
 
 function onCopyClicked(): void {

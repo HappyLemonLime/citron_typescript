@@ -16,11 +16,11 @@
 	</script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JummBox</title>
-    <meta name="application-name" content="JummBox" />
-    <meta name="apple-mobile-web-app-title" content="JummBox">
-    <meta name="description" content="JummBox is an online tool for sketching and sharing instrumental melodies." />
-    <meta name="keywords" content="chiptune, instrumental, music, song, melody, composition, tool, free, square wave, NES, NSF, JummBox, jummbox, BeepBox, beepbox" />
+    <title>Citron</title>
+    <meta name="application-name" content="Citron" />
+    <meta name="apple-mobile-web-app-title" content="Citron">
+    <meta name="description" content="Citron is an online tool for sketching and sharing instrumental melodies." />
+    <meta name="keywords" content="chiptune, instrumental, music, song, melody, composition, tool, free, square wave, NES, NSF, Citron, citron, BeepBox, beepbox" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -164,22 +164,22 @@
 <body>
     <div id="beepboxEditorContainer">
         <noscript>
-            Sorry, JummBox requires a JavaScript-enabled browser.
+            Sorry, Citron requires a JavaScript-enabled browser.
         </noscript>
     </div>
     <div id="text-content">
         <section>
 
             <h1>
-                <font color="#9c64f7">JummBox Offline</font>
-                <div id="jummboxPlant" style="display: inline; color:#62a13b"></div>
+                <font color="#9c64f7">Citron Offline</font>
+                <div id="citronPlant" style="display: inline; color:#62a13b"></div>
             </h1>
             <p id="introduction">
                 This is an online (and offline!) tool for sketching and sharing chiptune melodies.<br>
                 It is a modification of the <a href="https://www.beepbox.co/">original BeepBox</a> by John Nesky.
             </p>
             <p>
-                If you're familiar with BeepBox and just want to learn what JummBox does differently, check out this <a href="https://youtu.be/26yDP4ACuzE">overview video</a>.
+                If you're familiar with BeepBox and just want to learn what Citron does differently, check out this <a href="https://youtu.be/26yDP4ACuzE">overview video</a>.
             </p>
             <p>
                 All song data is contained in the URL at the top of your browser.
@@ -208,7 +208,7 @@
                     </h2>
                     <p>
                         You can add or remove notes by clicking on the gray rows at the top.
-                        JummBox automatically plays the notes out loud for you. Try it!
+                        Citron automatically plays the notes out loud for you. Try it!
                     </p>
                     <p>
                         Notes go into patterns, and you can edit one pattern at a time.
@@ -218,7 +218,7 @@
                         </span>
                     </p>
                     <p>
-                        JummBox can play several rows of patterns simultaneously, and each row has its own set of patterns.
+                        Citron can play several rows of patterns simultaneously, and each row has its own set of patterns.
                         Most rows can play melodies or harmonies, but the bottom row is for drums.
                     </p>
                     <p>
@@ -229,7 +229,7 @@
 
                     <div id="keyboard-instructions">
                         <p>
-                            When JummBox has focus (click on its interface above), you can use these keyboard shortcuts: <br />
+                            When Citron has focus (click on its interface above), you can use these keyboard shortcuts: <br />
                         </p>
                         <ul>
                             <li>Spacebar: play or pause the song</li>
@@ -268,7 +268,7 @@
 
                     </p>
                     <p>
-                        JummBox has many more features.
+                        Citron has many more features.
                         Try playing with the buttons and menus on the right side to find out what it can do!
                         You can also click on the label next to each option for a description of what it does.
                     </p>
@@ -283,17 +283,17 @@
                         About
                     </h2>
                     <p>
-                        JummBox is developed by Jummbus. You can find him sporadically at <a href="https://twitter.com/jummbus">twitter.com/jummbus</a>.<br><br>
+                        Citron is developed by Jummbus. You can find him sporadically at <a href="https://twitter.com/jummbus">twitter.com/jummbus</a>.<br><br>
                         BeepBox was originally developed by <a href="http://www.johnnesky.com">John Nesky</a>, also known as <a href="https://twitter.com/shaktool">@shaktool</a>.
                     </p>
                     <p>
-                        JummBox does not claim ownership over songs created with it, so original songs belong to their authors.
+                        Citron does not claim ownership over songs created with it, so original songs belong to their authors.
                     </p>
                     <p>
-                        Neither Jummbus nor Jummbox assume responsibility for any copyrighted material played on JummBox. No songs are ever received, recorded, or distributed by JummBox's servers. All song data is contained in the URL after the hash (#) mark, and JummBox running inside your browser converts that data into sound waves.
+                        Neither Jummbus nor Jummbox assume responsibility for any copyrighted material played on Citron. No songs are ever received, recorded, or distributed by Citron's servers. All song data is contained in the URL after the hash (#) mark, and Citron running inside your browser converts that data into sound waves.
                     </p>
                     <p>
-                        You can download and use <a href="https://github.com/jummbus/jummbox">the source code</a> under the MIT license.
+                        You can download and use <a href="https://github.com/jummbus/citron">the source code</a> under the MIT license.
                         The original BeepBox source code by John Nesky can be found <a href="https://github.com/johnnesky/beepbox">here</a>.
                     </p>
                 </section>
@@ -312,22 +312,22 @@
         if (Math.floor(Math.random() * 10) == 0) {
             switch (Math.floor(Math.random() * 4)) {
                 case 0:
-                    document.getElementById("jummboxPlant").innerHTML = "  🍂";
+                    document.getElementById("citronPlant").innerHTML = "  🍂";
                     break;
                 case 1:
-                    document.getElementById("jummboxPlant").innerHTML = "  🌿";
+                    document.getElementById("citronPlant").innerHTML = "  🌿";
                     break;
                 case 2:
-                    document.getElementById("jummboxPlant").innerHTML = "  🌺";
+                    document.getElementById("citronPlant").innerHTML = "  🌺";
                     break;
                 case 3:
-                    document.getElementById("jummboxPlant").innerHTML = "  🍃";
+                    document.getElementById("citronPlant").innerHTML = "  🍃";
                     break;
             }
         }
 
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|android|ipad|playbook|silk/i.test(navigator.userAgent)) {
-            document.getElementById("introduction").innerHTML = "JummBox is an online tool for sketching and sharing chiptune melodies. Make sure that your volume is turned up, then press the play button!";
+            document.getElementById("introduction").innerHTML = "Citron is an online tool for sketching and sharing chiptune melodies. Make sure that your volume is turned up, then press the play button!";
             document.getElementById("keyboard-instructions").style.display = "none";
             document.getElementById("bar-editing").innerHTML = "Tap the other boxes to move to a different part of the song, or tap on the currently selected box to swap which pattern is played during that part of the song.";
 			//document.getElementById("offline-instructions").innerHTML = 'You can use BeepBox when your device is offline if you put a shortcut to BeepBox on your home screen. <ul><li>Chrome: find the "Add to Home Screen" option in the ⋮ menu.</li><li>Firefox: find the "Add Page Shortcut" option in the ⋮ menu.</li><li>Safari: find the "Add to Home Screen" option in the bookmark menu.</li></ul>';

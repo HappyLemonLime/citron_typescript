@@ -6,35 +6,78 @@ import { SongDocument } from "./SongDocument";
 import { ColorConfig } from "./ColorConfig";
 
 //namespace beepbox {
-const { button, div, h2, select, option } = HTML;
+const { button, div, h2, select, option, optgroup } = HTML;
 
 export class ThemePrompt implements Prompt {
 	private readonly _themeSelect: HTMLSelectElement = select({ style: "width: 100%;" },
-		option({ value: "dark classic" }, "BeepBox Dark"),
-		option({ value: "light classic" }, "BeepBox Light"),
-		option({ value: "dark competition" }, "BeepBox Competition Dark"),
-		option({ value: "jummbox classic" }, "JummBox Dark"),
-		// option({ value: "jummbox light" }, "JummBox Light"), // It's not ready to see the world yet...
-		option({ value: "forest" }, "Forest"),
-		option({ value: "canyon" }, "Canyon"),
-		option({ value: "midnight" }, "Midnight"),
-		option({ value: "beachcombing" }, "Beachcombing"),
-		option({ value: "violet verdant" }, "Violet Verdant"),
-		option({ value: "sunset" }, "Sunset"),
-		option({ value: "autumn" }, "Autumn"),
-		option({ value: "fruit" }, "Shadowfruit"),
-		option({ value: "toxic" }, "Toxic"),
-		option({ value: "roe" }, "Roe"),
-		option({ value: "moonlight" }, "Moonlight"),
-		option({ value: "portal" }, "Portal"),
-		option({ value: "fusion" }, "Fusion"),
-		option({ value: "inverse" }, "Inverse"),
-		option({ value: "nebula" }, "Nebula"),
-		option({ value: "roe light" }, "Roe Light"),
-		option({ value: "energized" }, "Energized"),
-		option({ value: "neapolitan" }, "Neapolitan"),
-		option({ value: "poly" }, "Poly"),
-		option({ value: "blutonium" }, "Blutonium"),
+		optgroup({ label: "Default Themes" },
+			option({ value: "lemmbox dark" }, "LemmBox"),
+			option({ value: "forest" }, "Forest"),
+			option({ value: "canyon" }, "Canyon"),
+			option({ value: "midnight" }, "Midnight"),
+			option({ value: "beachcombing" }, "Beachcombing"),
+			option({ value: "violet verdant" }, "Violet Verdant"),
+			option({ value: "sunset" }, "Sunset"),
+			option({ value: "autumn" }, "Autumn"),
+			option({ value: "fruit" }, "Shadowfruit"),
+			option({ value: "toxic" }, "Toxic"),
+			option({ value: "roe" }, "Roe"),
+			option({ value: "moonlight" }, "Moonlight"),
+			option({ value: "portal" }, "Portal"),
+			option({ value: "fusion" }, "Fusion"),
+			option({ value: "inverse" }, "Inverse"),
+			option({ value: "nebula" }, "Nebula"),
+			option({ value: "roe light" }, "Roe Light"),
+			option({ value: "amoled dark" }, "High Contrast Dark"),
+			option({ value: "energized" }, "Energized"),
+			option({ value: "neapolitan" }, "Neapolitan"),
+			option({ value: "poly" }, "Poly"),
+			option({ value: "blutonium" }, "Blutonium"),
+			option({ value: "slushie" }, "Slushie"),
+		),
+		optgroup({ label: "Mod Themes" },
+			option({ value: "ultrabox dark" }, "UltraBox Dark"),
+			option({ value: "dark classic" }, "BeepBox Dark"),
+			option({ value: "light classic" }, "BeepBox Light"),
+			option({ value: "dark competition" }, "BeepBox Competition Dark"),
+			option({ value: "citron classic" }, "Citron Dark"),
+			// let's ADD THIS BACK again.
+			option({ value: "citron light" }, "Citron Light"),
+			option({ value: "modbox classic" }, "Modbox"),
+			option({ value: "sandbox classic" }, "Sandbox"),
+			option({ value: "harrybox" }, "Haileybox"),
+			option({ value: "brucebox" }, "Brucebox"),
+			option({ value: "shitbox 3.0" }, "Shitbox 1.0/3.0"),
+			option({ value: "shitbox 2.0" }, "Shitbox 2.0"),
+			option({ value: "nerdbox" }, "NerdBox"),
+			option({ value: "zefbox" }, "Zefbox"),
+			option({ value: "cardboardbox classic" }, "Cardboardbox"),
+			option({ value: "blubox classic" }, "Blubox"),
+			option({ value: "dogebox classic" }, "Dogebox"),
+			option({ value: "wackybox" }, "Wackybox"),
+			option({ value: "todbox dark mode" }, "Todbox Dark Mode"),
+			option({ value: "mainbox 1.0" }, "Mainbox"),
+			option({ value: "microbox" }, "MicroBox"),
+			option({ value: "paandorasbox" }, "PaandorasBox"),
+			option({ value: "foxbox" }, "FoxBox"),
+			option({ value: "midbox" }, "Midbox"),
+			option({ value: "dogebox2" }, "Dogebox2"),
+			option({ value: "abyssbox classic"}, "AbyssBox Classic"),
+			option({ value: "abyssbox light"}, "AbyssBox Light"),
+			option({ value: "nepbox" }, "Nepbox"),
+			option({ value: "slarmoosbox"}, "Slarmoo's Box"),
+		),
+		optgroup({ label: "Community" },
+			option({ value: "greyscale" }, "Greyscale"),
+			option({ value: "red" }, "Red"),
+			option({ value: "green" }, "Green"),
+			option({ value: "blue" }, "Blue"),
+			option({ value: "death" }, "D's Quick Box Theme")
+		),		
+		optgroup({ label: "Misc" },
+			option({ value: "azur lane" }, "Azur Lane"),
+			option({ value: "custom" }, "Custom")
+		),
 	);
 	private readonly _cancelButton: HTMLButtonElement = button({ class: "cancelButton" });
 	private readonly _okayButton: HTMLButtonElement = button({ class: "okayButton", style: "width:45%;" }, "Okay");
@@ -65,7 +108,7 @@ export class ThemePrompt implements Prompt {
 		if (this.lastTheme != null) {
 			ColorConfig.setTheme(this.lastTheme);
 		} else {
-			ColorConfig.setTheme("jummbox classic");
+			ColorConfig.setTheme(ColorConfig.defaultTheme);
 		}
 		this._doc.undo();
 	}

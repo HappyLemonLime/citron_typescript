@@ -471,7 +471,7 @@ export class ChangePreset extends Change {
 }
 
 export class ChangeRandomGeneratedInstrument extends Change {
-    constructor(doc: SongDocument) {
+    constructor(doc: SongDocument, usesCurrentInstrumentType: boolean) {
         super();
 
         interface ItemWeight<T> {
@@ -543,9 +543,11 @@ export class ChangeRandomGeneratedInstrument extends Change {
         ]);
 
         if (isNoise) {
-            const type: InstrumentType = selectWeightedRandom([
-                { item: InstrumentType.noise, weight: 1 },
+            const type: InstrumentType = usesCurrentInstrumentType ? instrument.type :
+            selectWeightedRandom([
+                { item: InstrumentType.noise, weight: 3 },
                 { item: InstrumentType.spectrum, weight: 3 },
+                { item: InstrumentType.drumset, weight: 1 },
             ]);
             instrument.preset = instrument.type = type;
 
@@ -701,17 +703,20 @@ export class ChangeRandomGeneratedInstrument extends Change {
                 default: throw new Error("Unhandled noise instrument type in random generator.");
             }
         } else {
-            const type: InstrumentType = selectWeightedRandom([
-                { item: InstrumentType.chip, weight: 4 },
-                { item: InstrumentType.pwm, weight: 4 },
-                { item: InstrumentType.supersaw, weight: 5 },
-                // { item: InstrumentType.customChipWave, weight: 3 },
-                { item: InstrumentType.harmonics, weight: 5 },
-                { item: InstrumentType.pickedString, weight: 5 },
-                { item: InstrumentType.spectrum, weight: 1 },
-                { item: InstrumentType.fm, weight: 5 },
+            const type: InstrumentType = usesCurrentInstrumentType ? instrument.type :
+            selectWeightedRandom([
+                { item: InstrumentType.chip, weight: 2 },
+                // { item: InstrumentType.noise, weight: 1 },
+                { item: InstrumentType.pwm, weight: 2 },
+                { item: InstrumentType.supersaw, weight: 2 },
+                { item: InstrumentType.customChipWave, weight: 2 },
+                { item: InstrumentType.harmonics, weight: 2 },
+                { item: InstrumentType.pickedString, weight: 2 },
+                { item: InstrumentType.spectrum, weight: 2 },
+                { item: InstrumentType.fm, weight: 2 },
             ]);
-            instrument.preset = instrument.type = type;
+			instrument.preset = instrument.type = type;
+
 
             instrument.fadeIn = (Math.random() < 0.5) ? 0 : selectCurvedDistribution(0, Config.fadeInRange - 1, 0, 2);
             instrument.fadeOut = selectCurvedDistribution(0, Config.fadeOutTicks.length - 1, Config.fadeOutNeutral, 2);
